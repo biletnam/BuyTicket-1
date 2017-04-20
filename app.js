@@ -76,6 +76,7 @@ app.get('/webhook/', function (req, res) {
 app.get('/apipolling/', function (req, res) {
     logger.debug("Inside api polling");
     try {
+        console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START OF MESSAGE REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");  
         res.end("welcome");
     }
     catch (err) {
