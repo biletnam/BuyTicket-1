@@ -16,8 +16,8 @@ var util = require('util');
 
 var REST_PORT = (process.env.PORT || process.env.port || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 var SEVER_IP_ADDR = process.env.OPENSHIFT_NODEJS_IP || process.env.HEROKU_IP || '127.0.0.1';
-var FB_VERIFY_TOKEN = config.FBVERIFYTOKEN;
-var APIAI_ACCESS_TOKEN = config.APIAIACCESSTOKEN;
+var FB_VERIFY_TOKEN = "";
+var APIAI_ACCESS_TOKEN = "";
 var APIAI_LANG = 'en';
 var APIAI_VERIFY_TOKEN = 'verify123';
 var apiAiService = apiai(APIAI_ACCESS_TOKEN);
