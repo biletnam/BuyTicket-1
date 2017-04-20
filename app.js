@@ -57,6 +57,21 @@ app.listen(REST_PORT, SEVER_IP_ADDR, function () {
     logger.debug('Rest service ready on port ' + REST_PORT);
 });
 
+
+app.get('/webhook/', function (req, res) {
+    logger.debug("inside webhook get");
+    if (req.query['hub.verify_token'] == FB_VERIFY_TOKEN) {
+        res.send(req.query['hub.challenge']);
+
+        setTimeout(function () {
+            doSubscribeRequest();
+        }, 3000);
+    } else {
+        res.send('Error, wrong FB validation token');
+    }
+});
+
+
 app.get('/apipolling/', function (req, res) {
     logger.debug("Inside api polling");
     try {
