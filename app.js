@@ -10,7 +10,7 @@ var async = require('async');
 var log4js = require('log4js');
 var fs = require('fs');
 var util = require('util');
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 
 var config = require('devconfig.json');
 
@@ -22,7 +22,7 @@ var APIAI_LANG = 'en';
 var APIAI_VERIFY_TOKEN = 'verify123';
 var apiAiService = apiai(APIAI_ACCESS_TOKEN);
 var sessionIds = new Map();
-var xhr = new XMLHttpRequest();
+
 
 log4js.configure({
     appenders:
