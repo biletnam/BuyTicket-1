@@ -82,7 +82,20 @@ app.get('/apipolling/', function (req, res) {
     }
 
 });
-
+function doSubscribeRequest() {
+    request({
+        method: 'POST',
+        uri: "https://graph.facebook.com/v2.8/me/subscribed_apps?access_token=" + FB_PAGE_ACCESS_TOKEN,
+        proxy: config.vz_proxy
+    },
+        function (error, response, body) {
+            if (error) {
+                logger.debug('Error while subscription: ', error);
+            } else {
+                logger.debug('Subscription result: ', response.body);
+            }
+        });
+}
 function processEvent(event, userCoversationArr) {
 
     logger.debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START OF MESSAGE REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
