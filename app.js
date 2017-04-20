@@ -14,8 +14,8 @@ var util = require('util');
 
 //var config = require('devconfig.json');
 
-var REST_PORT = (process.env.PORT || process.env.port || process.env.OPENSHIFT_NODEJS_PORT || 8080);
-var SEVER_IP_ADDR = process.env.OPENSHIFT_NODEJS_IP || process.env.HEROKU_IP || '127.0.0.1';
+var REST_PORT = (process.env.PORT || process.env.port || process.env.OPENSHIFT_NODEJS_PORT || 5000);
+var SEVER_IP_ADDR = process.env.OPENSHIFT_NODEJS_IP || process.env.HEROKU_IP;
 var FB_VERIFY_TOKEN = "123";
 var APIAI_ACCESS_TOKEN = "0b0df306ce58498ba23ecf31503ac615";
 var APIAI_LANG = 'en';
