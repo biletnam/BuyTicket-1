@@ -87,8 +87,7 @@ app.get('/apipolling/', function (req, res) {
 function doSubscribeRequest() {
     request({
         method: 'POST',
-        uri: "https://graph.facebook.com/v2.8/me/subscribed_apps?access_token=" + FB_PAGE_ACCESS_TOKEN,
-        proxy: config.vz_proxy
+        uri: "https://graph.facebook.com/v2.8/me/subscribed_apps?access_token=" + FB_PAGE_ACCESS_TOKEN       
     },
         function (error, response, body) {
             if (error) {
