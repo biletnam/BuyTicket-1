@@ -98,7 +98,7 @@ function doSubscribeRequest() {
         });
 }
 function processEvent(event, userCoversationArr) {
-
+console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START OF MESSAGE REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");  
     logger.debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START OF MESSAGE REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
     var sender = event.sender.id.toString();
