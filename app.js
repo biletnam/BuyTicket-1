@@ -60,6 +60,7 @@ app.listen(REST_PORT, SEVER_IP_ADDR, function () {
 
 
 app.get('/webhook/', function (req, res) {
+    console.log("inside webhook get");
     logger.debug("inside webhook get");
     if (req.query['hub.verify_token'] == FB_VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
@@ -91,8 +92,10 @@ function doSubscribeRequest() {
     },
         function (error, response, body) {
             if (error) {
+                console.log('Error while subscription: ', error);
                 logger.debug('Error while subscription: ', error);
             } else {
+                console.log('Subscription result: ', response.body);
                 logger.debug('Subscription result: ', response.body);
             }
         });
