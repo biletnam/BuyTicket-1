@@ -12,7 +12,7 @@ var fs = require('fs');
 var util = require('util');
 
 
-var config = require('devconfig.json');
+//var config = require('devconfig.json');
 
 var REST_PORT = (process.env.PORT || process.env.port || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 var SEVER_IP_ADDR = process.env.OPENSHIFT_NODEJS_IP || process.env.HEROKU_IP || '127.0.0.1';
