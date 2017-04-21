@@ -73,7 +73,171 @@ app.get('/webhook/', function (req, res) {
     }
 });
 
+app.post('/webhook/', function (req, res) {
+    try {
+        var data = JSONbig.parse(req.body);
+        var sprinklerFlag = '';
+        
+        //logger.debug("Webhook body" + req.body);
+        
+        if (data.entry) {
+            setTimeout(function () {
+                var entries = data.entry;
+                entries.forEach(function (entry) {
+                    
+                    var messaging_events = entry.messaging;
+                    
+                    if (messaging_events) {
+                        
+                        messaging_events.forEach(function (event) {
+                            
+                            if (event.sender) {
+                                var SenderID = event.sender.id;
+                            }
+                            
+                            if (event.recipient) {
+                                var RecipientID = event.recipient.id;
+                            }
+                            
+                            if (event.message) {
+                                //Customer Query
+                                var logdatetime = getDateTime();
+                                
+                                var TimeStamp = event.timestamp;
+                                
+                                var MessageID = event.message.mid;
+                                
+                                var MessageText = event.message.text;
+                                
+                                
+                                var isBotRespondedBack;
+                                
+                                if (SenderID == config.Facebook_SenderID) {
+                                    
+                                    //displayProgIndicator(false, RecipientID);
+                                    
+                                    if (event.message.text || event.message.attachment || event.message.attachments) {
+                                        
+                                        logger.debug("Bot responded back to user");
+                                        isBotRespondedBack = "YES";
+                                    }
+                                    else {
+                                        logger.debug("Bot Not responded back to user");
+                                        isBotRespondedBack = "NO";
+                                    }
+                                }
+                                else {
+                                    
+                                    logger.debug("User sent to Bot");
+                                    //displayProgIndicator(true, SenderID);
+                                    
+                                    var userCoversationArr = { printDateTime: '', UserRequestDate: logdatetime, interactionid: uuid.v1(), senderid: SenderID, receipentid: RecipientID, timestamp: TimeStamp, messageid: MessageID, CXquestion: MessageText, userreq: 'passed', apireqdatetime: '', action: '', intent: '', apiresdatetime: '', apiTimeTaken: '', apiaireq: 'Inprogress', ufdreqdatetime: '', ufdresdatetime: '', ufdTimeTaken: '', ufdreq: 'Notstarted', botresponsedatetime: '', botresponse: '', senttofb: 'Notyetsent', botresponsetime: '', isrecorded: '' };
+                                    
+                                    isBotRespondedBack = "User sent to Bot";
 
+                                }
+                            }
+                            else if (event.postback) {
+                                
+                                //Payload or Postback
+                                
+                                var TimeStamp = event.timestamp;
+                                var logdatetime = getDateTime();
+                                
+                                var MessageText = event.postback.payload;
+                                
+                                var isBotRespondedBack;
+                                
+                                if (SenderID == config.Facebook_SenderID) {
+                                    
+                                    //displayProgIndicator(false, RecipientID);
+                                    
+                                    if (event.postback.payload) {
+                                        
+                                        logger.debug("Bot responded back to user");
+                                        isBotRespondedBack = "YES";
+                                    }
+                                    else {
+                                        logger.debug("Bot Not responded back to user");
+                                        isBotRespondedBack = "NO";
+                                    }
+                                }
+                                else {
+                                    logger.debug("User Sent to Facebook");
+                                    
+                                    if (MessageText.toLowerCase() == "chat with agent") {
+                                        
+                                        logger.debug("inside sprinkler postback");
+                                        var inputstr = "<sprinkler>true</sprinkler>";
+                                        
+                                        var sessionStartTime = getDateTime();
+                                        var sessionEndTime;
+                                        
+                                        async.series({
+                                            one: function (callback) {
+                                               
+                                            }
+                                        }, function (err, results) {
+                                            
+
+                                        });
+                                        
+                                        var userCoversationArr = { printDateTime: '', UserRequestDate: logdatetime, interactionid: uuid.v1(), senderid: SenderID, receipentid: RecipientID, timestamp: TimeStamp, messageid: 'Payload', CXquestion: '', userreq: 'passed', apireqdatetime: '', action: '', intent: '', apiresdatetime: '', apiTimeTaken: '', apiaireq: 'NA', ufdreqdatetime: '', ufdresdatetime: '', ufdTimeTaken: '', ufdreq: 'NA', botresponsedatetime: '', botresponse: '', senttofb: 'Notyetsent', botresponsetime: 'I am transferring you to someone who can help! An agent will be with you shortly.', isrecorded: '' };
+                                        //staticMessages("CHATWITHAGENT", userCoversationArr, function (str) { staticMessagesCallback(str, senderid, userCoversationArr) });
+                                        
+                                        //sendFBMessage(SenderID, { text: "I am transferring you to someone who can help! An agent will be with you shortly." }, userCoversationArr);
+                                        
+                                        return;
+                                    }
+                                    
+                                    //displayProgIndicator(true, SenderID);
+                                    
+                                    isBotRespondedBack = "User sent to FB Bot";
+                                    
+                                    var userCoversationArr = { printDateTime: '', UserRequestDate: logdatetime, interactionid: uuid.v1(), senderid: SenderID, receipentid: RecipientID, timestamp: TimeStamp, messageid: 'Payload', CXquestion: '', userreq: 'passed', apireqdatetime: '', action: '', intent: '', apiresdatetime: '', apiTimeTaken: '', apiaireq: 'Inprogress', ufdreqdatetime: '', ufdresdatetime: '', ufdTimeTaken: '', ufdreq: 'Notstarted', botresponsedatetime: '', botresponse: '', senttofb: 'Notyetsent', botresponsetime: '', isrecorded: '' };
+
+
+                                }
+
+                            }
+                            else if (event.account_linking) {
+                                var TimeStamp = event.time;
+                                var logdatetime = getDateTime();
+                                var status = '';
+                                if (event.account_linking.status)
+                                    status = event.account_linking.status;
+                                
+                                //displayProgIndicator(true, SenderID);
+                                
+                                var userCoversationArr = { printDateTime: '', UserRequestDate: logdatetime, interactionid: uuid.v1(), senderid: SenderID, receipentid: RecipientID, timestamp: TimeStamp, messageid: 'AccountLinking', CXquestion: status, userreq: 'passed', apireqdatetime: '', action: '', intent: '', apiresdatetime: '', apiTimeTaken: '', apiaireq: 'Inprogress', ufdreqdatetime: '', ufdresdatetime: '', ufdTimeTaken: '', ufdreq: 'Notstarted', botresponsedatetime: '', botresponse: '', senttofb: 'Notyetsent', botresponsetime: '', isrecorded: '' };
+
+                            }
+                            
+                            if (event.message && !event.message.is_echo ||
+                                event.postback && event.postback.payload ||
+                                event.account_linking) {
+                                
+                                //printChatHistory(userCoversationArr);
+                                
+                                processEvent(event, userCoversationArr);
+
+                            }
+                        });
+                    }
+                });
+            }, 250);
+        }
+        
+        return res.status(200).json({
+            status: "ok"
+        });
+    } catch (err) {
+        logger.debug("Error in post api.ai " + err);
+        res.status(200).json({
+            status: "ok"
+        });
+    }
+});
 app.get('/apipolling/', function (req, res) {
     logger.debug("Inside api polling");
     try {
