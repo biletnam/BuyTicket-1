@@ -75,9 +75,11 @@ app.get('/webhook/', function (req, res) {
 
 app.post('/webhook/', function (req, res) {
     try {
+        console.log("INSIDE WEBHOOK");
         var data = JSONbig.parse(req.body);
         var sprinklerFlag = '';
         
+
         //logger.debug("Webhook body" + req.body);
         
         if (data.entry) {
